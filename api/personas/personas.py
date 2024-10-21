@@ -23,10 +23,10 @@ def escribirFichero(personas):
 
 # GET
 @personasBP.get("/")
-def getProgramadores():
+def getPersonas():
     return jsonify(leerFichero(personasFichero))
 
-@personasBP.get("/<int:id>/webs")
+@personasBP.get("/<int:id>/moviles")
 def getMovilByPersona(id):
     personas = leerFichero(personasFichero)
 

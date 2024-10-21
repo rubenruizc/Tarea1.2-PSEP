@@ -11,18 +11,18 @@ movilesFichero = "api/ficheros/moviles.json"
 
 def leerFichero(fichero):
     archivo = open(fichero, 'r')
-    programadores = json.load(archivo)
+    moviles = json.load(archivo)
     archivo.close()
-    return programadores
+    return moviles
 
-def escribirFichero(programadores):
-    archivo = open('app/ficheros/webs.json', 'w')
-    json.dump(programadores, archivo)
+def escribirFichero(personas):
+    archivo = open('api/ficheros/moviles.json', 'w')
+    json.dump(personas, archivo)
     archivo.close()
 
 # GET
 @movilesBP.get("/")
-def getWebs():
+def getMoviles():
     return jsonify(leerFichero(movilesFichero))
 
 def findPersona(id):
@@ -33,7 +33,7 @@ def findPersona(id):
             return persona
     return ""
 
-@movilesBP.get("/<int:id>/programador")
+@movilesBP.get("/<int:id>/personas")
 def getPersonaByMovil(id):
     moviles = leerFichero(movilesFichero)
     for movil in moviles:
