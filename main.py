@@ -1,22 +1,25 @@
 #coding: latin1
+from time import sleep
 import requests
 
 from api.personas.personas import personasBP
 
 
 def main():
-    print('Bienvenido a la API de Personas y sus móviles')
-    op = int(input('¿A qué fichero quiere entrar?\n1. Personas\n2. Móviles\n3. Salir\n'))
+    print('Bienvenido a la API de Personas y sus mï¿½viles')
+    op = int(input('ï¿½A quï¿½ fichero quiere entrar?\n1. Personas\n2. Mï¿½viles\n3. Salir\n'))
 
     while op > 3 or op < 1:
-        print('No es una opción válida')
-        op = int(input('¿A qué fichero quiere entrar?\n1. Personas\n2. Móviles\n3. Salir\n'))
+        print('No es una opciï¿½n vï¿½lida')
+        op = int(input('ï¿½A quï¿½ fichero quiere entrar?\n1. Personas\n2. Mï¿½viles\n3. Salir\n'))
 
     if op == 1:
         print('Entrando a personas...')
+        sleep(1)
         personas()
     elif op == 2:
-        print('Entrando a móviles...')
+        print('Entrando a mï¿½viles...')
+        sleep(1)
         moviles()
     elif op == 3:
         print('Un saludo...')
@@ -24,7 +27,7 @@ def main():
 def personas():
     api_url = "http://127.0.0.1:5050/personas"
     print('PERSONAS')
-    op = int(input('¿Qué quire hacer?\n1. Obtener todas las personas\n2. Obtener una peresona\n3. Obtener los móviles de una persona\n4. Actualizar una persona\n5. Eliminar una persona\n6. Crear una persona'))
+    op = int(input('ï¿½Quï¿½ quire hacer?\n1. Obtener todas las personas\n2. Obtener una peresona\n3. Obtener los mï¿½viles de una persona\n4. Actualizar una persona\n5. Eliminar una persona\n6. Crear una persona\n 7.Salir'))
 
     while op != 7:
         if op == 1:
@@ -37,13 +40,13 @@ def personas():
             print(response.json())
         elif op == 3:
             print('\n')
-            iD = int(input('Cual es el ID de la persona de la que deseas obtener sus móviles?'))
+            iD = int(input('Cual es el ID de la persona de la que deseas obtener sus mï¿½viles?'))
             response = requests.get(api_url + '/' + str(iD) + '/moviles')
             print(response.json())
         elif op == 4:
             print('\n')
 
-            opA = int(input('¿Qué deseas hacer?\n1. Actualizar todos los campos\n2. Actualizar solo un campo\n3. Salir'))
+            opA = int(input('ï¿½Quï¿½ deseas hacer?\n1. Actualizar todos los campos\n2. Actualizar solo un campo\n3. Salir'))
 
             while opA != 3:
                 if opA == 1:
@@ -54,7 +57,7 @@ def personas():
                     telefono = int(input('Cual es el telefono'))
                     correo = input('Cual es el correo')
 
-                    todo = {'Id': idMod, 'DNI': dni, 'Nombre': nombre, 'Apellidos': apellidos, 'Teléfono': telefono,
+                    todo = {'Id': idMod, 'DNI': dni, 'Nombre': nombre, 'Apellidos': apellidos, 'Telï¿½fono': telefono,
                             'Correo': correo}
 
                     response = requests.put(api_url + '/' +  str(idMod), json=todo)
@@ -64,7 +67,7 @@ def personas():
                     idMod = int(input('Cual id quieres modificar'))
 
                     modo = int(input(
-                        '¿Qué quieres modificar? (1: Dni, 2: Nombre, 3: Apellidos, 4: Telefono,  5: Correo, 0: Salir)'))
+                        'ï¿½Quï¿½ quieres modificar? (1: Dni, 2: Nombre, 3: Apellidos, 4: Telefono,  5: Correo, 0: Salir)'))
 
                     while modo != 0:
 
@@ -79,12 +82,12 @@ def personas():
                             todo = {'Apellidos': apellidos}
                         elif modo == 4:
                             telefono = int(input('Cual es el telefono: '))
-                            todo = {'Teléfono': telefono}
+                            todo = {'Telï¿½fono': telefono}
                         elif modo == 5:
                             correo = input('Cual es el correo: ')
                             todo = {'Correo': correo}
                         else:
-                            print('Esa opción no es válida. Por favor, intenta de nuevo.')
+                            print('Esa opciï¿½n no es vï¿½lida. Por favor, intenta de nuevo.')
 
                         response = requests.put(api_url + "/" + str(idMod), json=todo)
                         print(response.status_code)
@@ -92,17 +95,17 @@ def personas():
 
                         print('\n')
                         modo = int(input(
-                            '¿Qué quieres modificar? (1: Dni, 2: Nombre, 3: Apellidos, 4: Telefono,  5: Correo, 0: Salir)'))
+                            'ï¿½Quï¿½ quieres modificar? (1: Dni, 2: Nombre, 3: Apellidos, 4: Telefono,  5: Correo, 0: Salir)'))
 
                     print('\n')
                     personas()
 
                 else:
-                    print('No es una opción válida')
+                    print('No es una opciï¿½n vï¿½lida')
 
                 print('\n')
                 opA = int(
-                    input('¿Qué deseas hacer?\n1. Actualizar todos los campos\n2. Actualizar solo un campo\n3. Salir'))
+                    input('ï¿½Quï¿½ deseas hacer?\n1. Actualizar todos los campos\n2. Actualizar solo un campo\n3. Salir'))
 
             print('\n')
             personas()
@@ -120,23 +123,31 @@ def personas():
             telefono = int(input('Cual es el telefono'))
             correo = input('Cual es el correo')
 
-            todo = {'DNI': dni, 'Nombre': nombre, 'Apellidos': apellidos, 'Teléfono': telefono,
+            todo = {'DNI': dni, 'Nombre': nombre, 'Apellidos': apellidos, 'Telï¿½fono': telefono,
                     'Correo': correo}
             response = requests.post(api_url, json=todo)
             print(response.status_code)
             print(response.json())
+        
         else:
-            print('No es una opción válida')
+            print('No es una opciï¿½n vï¿½lida')
 
 
         print("\n")
         op = int(input(
-            '¿Qué deseas hacer?\n1. Obtener todas las personas\n2. Obtener una persona\n3. Obtener los móviles de una persona\n4. Actualizar una persona\n5. Eliminar una persona\n6. Crear una persona'))
+            'ï¿½Quï¿½ deseas hacer?\n1. Obtener todas las personas\n2. Obtener una persona\n3. Obtener los mï¿½viles de una persona\n4. Actualizar una persona\n5. Eliminar una persona\n6. Crear una persona'))
+            
+    
+    print('\n')
+    print("Volviendo al menÃº principal...")
+    sleep(1)
+    main()
+
 
 def moviles():
     api_url = "http://127.0.0.1:5050/moviles"
-    print('MÓVILES')
-    op = int(input('¿Qué deseas hacer?\n1. Obtener todos los móviles\n2. Obtener un móvil\n3. Obtener la persona de un móvil\n4. Actualizar un móvil\n5. Eliminar un móvil\n6. Crear un móvil'))
+    print('Mï¿½VILES')
+    op = int(input('ï¿½Quï¿½ deseas hacer?\n1. Obtener todos los mï¿½viles\n2. Obtener un mï¿½vil\n3. Obtener la persona de un mï¿½vil\n4. Actualizar un mï¿½vil\n5. Eliminar un mï¿½vil\n6. Crear un mï¿½vil'))
 
     while op != 7:
         if op == 1:
@@ -149,22 +160,22 @@ def moviles():
             print(response.json())
         elif op == 3:
             print('\n')
-            iD = int(input('Cual es el ID del móvil de la cual deseas obtener su persona?'))
+            iD = int(input('Cual es el ID del mï¿½vil de la cual deseas obtener su persona?'))
             response = requests.get(api_url + '/' + str(iD) + '/persona')
             print(response.json())
         elif op == 4:
             print('\n')
 
-            opA = int(input('¿Qué deseas hacer?\n1. Actualizar todos los campos\n2. Actualizar solo un campo\n3. Salir'))
+            opA = int(input('ï¿½Quï¿½ deseas hacer?\n1. Actualizar todos los campos\n2. Actualizar solo un campo\n3. Salir'))
 
             while opA != 3:
                 if opA == 1:
                     idMod = int(input('Cual id quieres modificar'))
-                    PrecioCosteMovil = input('Cual es el precio del móvil')
-                    PrecioVentaMovil = input('Cual es el precio venta del móvil')
+                    PrecioCosteMovil = input('Cual es el precio del mï¿½vil')
+                    PrecioVentaMovil = input('Cual es el precio venta del mï¿½vil')
                     idPersona = int(input('Cual es el id de la persona'))
 
-                    todo = {'Id': idMod, 'Precio Coste Móvil': PrecioCosteMovil, 'Precio Venta Móvil': PrecioVentaMovil, 'IdPersona': idPersona}
+                    todo = {'Id': idMod, 'Precio Coste Mï¿½vil': PrecioCosteMovil, 'Precio Venta Mï¿½vil': PrecioVentaMovil, 'IdPersona': idPersona}
 
                     response = requests.put(api_url + '/' +  str(idMod), json=todo)
                     print(response.status_code)
@@ -173,21 +184,21 @@ def moviles():
                     idMod = int(input('Cual id quieres modificar'))
 
                     modo = int(input(
-                        '¿Qué quieres modificar? (1: Precio Coste Móvil, 2: Precio Venta Móvil, 3: IdPersona, 0: Salir)'))
+                        'ï¿½Quï¿½ quieres modificar? (1: Precio Coste Mï¿½vil, 2: Precio Venta Mï¿½vil, 3: IdPersona, 0: Salir)'))
 
                     while modo != 0:
 
                         if modo == 1:
-                            PrecioCosteMovil = input('Cual es el coste del móvil: ')
-                            todo = {'Precio Coste Móvil': PrecioCosteMovil}
+                            PrecioCosteMovil = input('Cual es el coste del mï¿½vil: ')
+                            todo = {'Precio Coste Mï¿½vil': PrecioCosteMovil}
                         elif modo == 2:
-                            PrecioVentaMovil = input('Cual es el precio venta del móvil: ')
-                            todo = {'Precio Venta Móvil': PrecioVentaMovil}
+                            PrecioVentaMovil = input('Cual es el precio venta del mï¿½vil: ')
+                            todo = {'Precio Venta Mï¿½vil': PrecioVentaMovil}
                         elif modo == 3:
                             idPersona = input('Cual es el id de la persona: ')
                             todo = {'idPersona': idPersona}
                         else:
-                            print('Esa opción no es válida. Por favor, intenta de nuevo.')
+                            print('Esa opciï¿½n no es vï¿½lida. Por favor, intenta de nuevo.')
 
                         response = requests.put(api_url + "/" + str(idMod), json=todo)
                         print(response.status_code)
@@ -195,17 +206,17 @@ def moviles():
 
                         print('\n')
                         modo = int(input(
-                            '¿Qué quieres modificar? (1: Precio Coste Móvil, 2: Precio Venta Móvil, 3: IdPersona, 0: Salir)'))
+                            'ï¿½Quï¿½ quieres modificar? (1: Precio Coste Mï¿½vil, 2: Precio Venta Mï¿½vil, 3: IdPersona, 0: Salir)'))
 
                     print('\n')
                     moviles()
 
                 else:
-                    print('No es una opción válida')
+                    print('No es una opciï¿½n vï¿½lida')
 
                 print('\n')
                 opA = int(
-                    input('¿Qué deseas hacer?\n1. Actualizar todos los campos\n2. Actualizar solo un campo\n3. Salir'))
+                    input('ï¿½Quï¿½ deseas hacer?\n1. Actualizar todos los campos\n2. Actualizar solo un campo\n3. Salir'))
 
             print('\n')
             moviles()
@@ -217,21 +228,21 @@ def moviles():
             print(response.json())
 
         elif op == 6:
-            PrecioCosteMovil = input('Cual es el precio del móvil')
-            PrecioVentaMovil = input('Cual es el precio venta del móvil')
+            PrecioCosteMovil = input('Cual es el precio del mï¿½vil')
+            PrecioVentaMovil = input('Cual es el precio venta del mï¿½vil')
             idPersona = int(input('Cual es el id de la persona'))
 
-            todo = {'Precio Coste Móvil': PrecioCosteMovil, 'Precio Venta Móvil': PrecioVentaMovil, 'IdPersona': idPersona}
+            todo = {'Precio Coste Mï¿½vil': PrecioCosteMovil, 'Precio Venta Mï¿½vil': PrecioVentaMovil, 'IdPersona': idPersona}
             response = requests.post(api_url, json=todo)
             print(response.status_code)
             print(response.json())
         else:
-            print('No es una opción válida')
+            print('No es una opciï¿½n vï¿½lida')
 
 
         print("\n")
         op = int(input(
-            '¿Qué deseas hacer?\n1. Obtener todos los móviles\n2. Obtener un móvil\n3. Obtener la persona de un móvil\n4. Actualizar un móvil\n5. Eliminar un móvil\n6. Crear un móvil'))
+            'ï¿½Quï¿½ deseas hacer?\n1. Obtener todos los mï¿½viles\n2. Obtener un mï¿½vil\n3. Obtener la persona de un mï¿½vil\n4. Actualizar un mï¿½vil\n5. Eliminar un mï¿½vil\n6. Crear un mï¿½vil'))
 
 
 if __name__ == '__main__':

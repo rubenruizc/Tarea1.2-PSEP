@@ -38,3 +38,16 @@ def addUser():
 @usersBP.get("/")
 def getUsers():
     return jsonify(leerFichero(ficheroUsers))
+
+@usersBP.post("/login")
+def getUsuario():
+   if request.is_json:
+       user = request.get_json()
+       username = user["username"]
+       password = user["password"]
+       usuarios = leerFichero(ficheroUsers)
+       for usuario in usuarios:
+           if usuario["username"] == username and bcrypt.checkpw(password.encode("utf-8"),bytes.fromhex(usuario["password"])):
+               return {"token": create_access_token(identity=username)}, 200
+       return None, 401
+   return {"error": "Request must be JSON"}, 415

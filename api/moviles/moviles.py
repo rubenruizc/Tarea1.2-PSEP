@@ -29,7 +29,7 @@ def findPersona(id):
     personas = leerFichero(personasFichero)
 
     for persona in personas:
-        if persona['Id'] == id:
+        if persona['id'] == id:
             return persona
     return ""
 
@@ -37,7 +37,7 @@ def findPersona(id):
 def getPersonaByMovil(id):
     moviles = leerFichero(movilesFichero)
     for movil in moviles:
-        if movil['Id'] == id:
+        if movil['id'] == id:
             list = findPersona(movil['IdPersona'])
             if len(list) > 0:
                 return list, 200
@@ -51,21 +51,21 @@ def getPersonaByMovil(id):
 def getMovilById(id):
     moviles = leerFichero(movilesFichero)
     for movil in moviles:
-        if movil['Id'] == id:
+        if movil['id'] == id:
             return movil, 200
     return {"error": "No existe un móvil con dicho ID"}, 404
 
 # PUT
 def findNextId():
     moviles = leerFichero(movilesFichero)
-    return max(movil["Id"] for movil in moviles) + 1
+    return max(movil["id"] for movil in moviles) + 1
 
 @movilesBP.post("/")
 def addMovil():
     if request.is_json:
         movil = request.get_json()
 
-        movil["Id"] = findNextId()
+        movil["id"] = findNextId()
 
         moviles = leerFichero(movilesFichero)
         moviles.append(movil)
@@ -84,7 +84,7 @@ def updateMovil(id):
 
         moviles = leerFichero(movilesFichero)
         for movil in moviles:
-            if movil['Id'] == id:
+            if movil['id'] == id:
                 for element in newMovil:
                     movil[element] = newMovil[element]
                 escribirFichero(moviles)
@@ -96,7 +96,7 @@ def updateMovil(id):
 def deleteMovil(id):
     moviles = leerFichero(movilesFichero)
     for movil in moviles:
-        if movil["Id"] == id:
+        if movil["id"] == id:
             moviles.remove(movil)
 
             escribirFichero(moviles)

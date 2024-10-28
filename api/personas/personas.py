@@ -31,11 +31,11 @@ def getMovilByPersona(id):
     personas = leerFichero(personasFichero)
 
     for persona in personas:
-        if persona['Id'] == id:
+        if persona['id'] == id:
             moviles = leerFichero(movilesFichero)
             list = []
             for movil in moviles:
-                if movil['IdPersona'] == id:
+                if movil['idPersona'] == id:
                     list.append(movil)
             if len(list) > 0:
                 return list, 200
@@ -47,21 +47,21 @@ def getMovilByPersona(id):
 def getPersonaById(id):
     personas = leerFichero(personasFichero)
     for persona in personas:
-        if persona['Id'] == id:
+        if persona['id'] == id:
             return persona, 200
     return {"error": "No existe una persona con ese ID"}, 404
 
 # PUT
 def findNextId():
     personas = leerFichero(personasFichero)
-    return max(persona["Id"] for persona in personas) + 1
+    return max(persona["id"] for persona in personas) + 1
 
 @personasBP.post("/")
 def addPersona():
     if request.is_json:
         persona = request.get_json()
 
-        persona["Id"] = findNextId()
+        persona["id"] = findNextId()
 
         personas = leerFichero(personasFichero)
         personas.append(persona)
@@ -81,7 +81,7 @@ def updatePersona(id):
         personas = leerFichero(personasFichero)
 
         for persona in personas:
-            if persona['Id'] == id:
+            if persona['id'] == id:
                 for element in newPersona:
                     persona[element] = newPersona[element]
 
@@ -90,13 +90,14 @@ def updatePersona(id):
 
     return {"error": "Request must be a JSON"}, 415
 
+# DELETE
 @personasBP.delete("/<int:id>")
 def deletePersona(id):
 
     personas = leerFichero(personasFichero)
 
     for persona in personas:
-        if persona["Id"] == id:
+        if persona["id"] == id:
             personas.remove(persona)
 
             escribirFichero(personas)
